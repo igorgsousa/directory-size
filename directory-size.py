@@ -8,13 +8,19 @@ import sys
 
 def getSize(startPath = '.'):
     totalSize = 0
-    for dirpath, dirnames, filenames in os.walk(startPath):
-        for f in filenames:
-            fp = os.path.join(dirpath,f)
-            
-            if not os.path.islink(fp):
-                totalSize += os.path.getsize(fp)
-    return totalSize
+    errors = 0
+    if not os.path.islink(startPath):
+        for dirpath, dirnames, filenames in os.walk(startPath):
+            for f in filenames:
+                fp = os.path.join(dirpath,f)
+                
+                if not os.path.islink(fp):
+                    try:
+                            totalSize += os.path.getsize(fp)
+                    except OSError as err:
+                            #(print(err, ":", fp)
+                            errors+=1         
+    return (totalSize, errors)
                 
             
 
@@ -24,6 +30,8 @@ print("Analisando "+sys.argv[1])
 for simpleDir in os.listdir(homeDir):
     dir = os.path.join(homeDir,simpleDir)
     if os.path.isdir(dir):
-        sizeInGB =  (((getSize(dir)/1024)/1024)/1024)
+        result = getSize(dir)
+        sizeInGB =  (((result[0]/1024)/1024)/1024)
         print(simpleDir,' ',sizeInGB, 'GB')
+        print('Errors',result[1])
     
