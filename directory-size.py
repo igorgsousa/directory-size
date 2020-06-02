@@ -22,16 +22,75 @@ def getSize(startPath = '.'):
                             errors+=1         
     return (totalSize, errors)
                 
-            
+ 
+class Config:
 
-#C:\Program Files
-homeDir = '\\\\?\\'+sys.argv[1]
-print("Analisando "+sys.argv[1])
+    def __init__(self):
+        self.directory = "."
+        self.minSizeToShowInResult = -1
+
+class Result:
+    def __init__(self):
+        self.size = 0
+        self.errors = 0
+        self.dir = ""
+
+    def __init__(self, dir, size, errors):
+        self.size = size
+        self.errors = errors
+        self.dir = dir              
+
+
+def initArgs(args):
+    
+    ret = Config()
+
+
+    for arg in args:
+        if arg.startswith("--dir="):
+            ret.directory = arg.replace("--dir=", "")
+        elif arg.startswith("--min-size="):
+            ret.minSizeToShowInResult = arg.replace("--min-size=", "")    
+
+
+    return ret 
+
+def printHeaderLine():
+
+    folderNameCol = "Name"
+    folderSizeCol = "SIZE"
+    errorsCol = "ERRORS"
+    line = "-"
+
+    print(folderNameCol.ljust(80,' '),'|', folderSizeCol.ljust(40, ' '),'|',errorsCol.ljust(15, ' ') )
+    print(line.rjust(137, '-'))
+
+def printResultLine(result):
+
+    print(result.dir.ljust(80,' '),'|', (str(result.size)+ ' GB').rjust(40, ' '),'|',str(result.errors).ljust(15, ' ') )
+
+  
+config = initArgs(sys.argv)
+
+homeDir = '\\\\?\\'+config.directory
+minSize = sys.argv[2] 
+print('\n\n',"Analisando "+config.directory, '\n\n')
+
+printHeaderLine() 
+
 for simpleDir in os.listdir(homeDir):
     dir = os.path.join(homeDir,simpleDir)
     if os.path.isdir(dir):
         result = getSize(dir)
         sizeInGB =  (((result[0]/1024)/1024)/1024)
-        print(simpleDir,' ',sizeInGB, 'GB')
-        print('Errors',result[1])
+
+        resultFolder = Result(str(simpleDir), float(sizeInGB) , int(result[1]))
+
+        if(int(config.minSizeToShowInResult) != -1):
+            if(sizeInGB >= float(config.minSizeToShowInResult)):
+                printResultLine(resultFolder)
+        else:
+            printResultLine(resultFolder)
+        
+
     
