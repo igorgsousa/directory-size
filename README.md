@@ -21,7 +21,7 @@ Para implementação e teste foi utilizado a seguinte versao do Python:
 * `python directory-size.py --dir="C:\pasta\que\deseja\saber\o\tamanho\das\subpastas"  --min-size=1`
  
   
-  > dir : diretorio para analise <br/>
-  > min-size [OPCIONAL] : tamanho minimo (em GB) para mostrar no resultado
+  > __dir__: diretorio para analise <br/>
+  > __min-size__ [OPCIONAL] : tamanho minimo (em GB) para mostrar no resultado
 
 4. Deixe sua estrela no projeto se te ajudou :)
