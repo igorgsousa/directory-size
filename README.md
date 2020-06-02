@@ -18,8 +18,10 @@ Para implementação e teste foi utilizado a seguinte versao do Python:
 
 2. Abra o terminal de comandos e navegue para a pasta onde esta localizado o arquivo  `directory-size.py`
 3. Execute o seguinte comando para executar o programa 
-* `python directory-size.py --dir="C:\pasta\que\deseja\saber\o\tamanho\das\subpastas" [OPCIONAL] --min-size=1`
+* `python directory-size.py --dir="C:\pasta\que\deseja\saber\o\tamanho\das\subpastas"  --min-size=1`
+ 
+  
   > dir : diretorio para analise <br/>
-  > min-size : tamanho minimo da pasta para aparecer no resultado
+  > min-size [OPCIONAL] : tamanho minimo da pasta para aparecer no resultado
 
 4. Deixe sua estrela no projeto se te ajudou :)
