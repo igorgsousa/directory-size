@@ -22,6 +22,6 @@ Para implementação e teste foi utilizado a seguinte versao do Python:
  
   
   > dir : diretorio para analise <br/>
-  > min-size [OPCIONAL] : tamanho minimo da pasta para aparecer no resultado
+  > min-size [OPCIONAL] : tamanho minimo (em GB) para mostrar no resultado
 
 4. Deixe sua estrela no projeto se te ajudou :)
